@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>    
+<!-- 数据库驱动-->    
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
+
+        <commentGenerator>    
+            <property name="suppressDate" value="true"/>    
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->    
+            <property name="suppressAllComments" value="true"/>    
+        </commentGenerator>
+
+        <!--数据库链接URL，用户名、密码 -->    
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://192.168.0.102:1433;DatabaseName=jxminyu"
+                        userId="sa"
+                        password="bing">
+        </jdbcConnection>
+
+        <javaTypeResolver>    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置 指定javabean生成的位置 javabean pojo简单java对象-->
+        <javaModelGenerator targetPackage="com.liufengkj.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>    
+            <property name="trimStrings" value="true"/>    
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置 就是mapper文件  -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>    
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置 指定dao接口生成的位置 mapper接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.liufengkj.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>    
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="NPC_Admin" domainObjectName="AdminUser"/>
+
+    </context>
+</generatorConfiguration>    
