@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liufengkj.dao.OndutyManMapper">
+  <resultMap id="BaseResultMap" type="com.liufengkj.pojo.OndutyMan">
+    <id column="OM_ID" jdbcType="INTEGER" property="omId" />
+    <result column="OM_Name" jdbcType="VARCHAR" property="omName" />
+    <result column="OM_MobilePhone" jdbcType="VARCHAR" property="omMobilephone" />
+    <result column="OM_ShortPhone" jdbcType="VARCHAR" property="omShortphone" />
+    <result column="OM_UserImg" jdbcType="VARCHAR" property="omUserimg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OM_ID, OM_Name, OM_MobilePhone, OM_ShortPhone, OM_UserImg
+  </sql>
+  <select id="selectByExample" parameterType="com.liufengkj.pojo.OndutyManExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HCYP_OndutyMan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HCYP_OndutyMan
+    where OM_ID = #{omId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from HCYP_OndutyMan
+    where OM_ID = #{omId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liufengkj.pojo.OndutyManExample">
+    delete from HCYP_OndutyMan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liufengkj.pojo.OndutyMan">
+    insert into HCYP_OndutyMan (OM_ID, OM_Name, OM_MobilePhone, 
+      OM_ShortPhone, OM_UserImg)
+    values (#{omId,jdbcType=INTEGER}, #{omName,jdbcType=VARCHAR}, #{omMobilephone,jdbcType=VARCHAR}, 
+      #{omShortphone,jdbcType=VARCHAR}, #{omUserimg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liufengkj.pojo.OndutyMan">
+    insert into HCYP_OndutyMan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="omId != null">
+        OM_ID,
+      </if>
+      <if test="omName != null">
+        OM_Name,
+      </if>
+      <if test="omMobilephone != null">
+        OM_MobilePhone,
+      </if>
+      <if test="omShortphone != null">
+        OM_ShortPhone,
+      </if>
+      <if test="omUserimg != null">
+        OM_UserImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="omId != null">
+        #{omId,jdbcType=INTEGER},
+      </if>
+      <if test="omName != null">
+        #{omName,jdbcType=VARCHAR},
+      </if>
+      <if test="omMobilephone != null">
+        #{omMobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="omShortphone != null">
+        #{omShortphone,jdbcType=VARCHAR},
+      </if>
+      <if test="omUserimg != null">
+        #{omUserimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liufengkj.pojo.OndutyManExample" resultType="java.lang.Long">
+    select count(*) from HCYP_OndutyMan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HCYP_OndutyMan
+    <set>
+      <if test="record.omId != null">
+        OM_ID = #{record.omId,jdbcType=INTEGER},
+      </if>
+      <if test="record.omName != null">
+        OM_Name = #{record.omName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.omMobilephone != null">
+        OM_MobilePhone = #{record.omMobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.omShortphone != null">
+        OM_ShortPhone = #{record.omShortphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.omUserimg != null">
+        OM_UserImg = #{record.omUserimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HCYP_OndutyMan
+    set OM_ID = #{record.omId,jdbcType=INTEGER},
+      OM_Name = #{record.omName,jdbcType=VARCHAR},
+      OM_MobilePhone = #{record.omMobilephone,jdbcType=VARCHAR},
+      OM_ShortPhone = #{record.omShortphone,jdbcType=VARCHAR},
+      OM_UserImg = #{record.omUserimg,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liufengkj.pojo.OndutyMan">
+    update HCYP_OndutyMan
+    <set>
+      <if test="omName != null">
+        OM_Name = #{omName,jdbcType=VARCHAR},
+      </if>
+      <if test="omMobilephone != null">
+        OM_MobilePhone = #{omMobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="omShortphone != null">
+        OM_ShortPhone = #{omShortphone,jdbcType=VARCHAR},
+      </if>
+      <if test="omUserimg != null">
+        OM_UserImg = #{omUserimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OM_ID = #{omId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liufengkj.pojo.OndutyMan">
+    update HCYP_OndutyMan
+    set OM_Name = #{omName,jdbcType=VARCHAR},
+      OM_MobilePhone = #{omMobilephone,jdbcType=VARCHAR},
+      OM_ShortPhone = #{omShortphone,jdbcType=VARCHAR},
+      OM_UserImg = #{omUserimg,jdbcType=VARCHAR}
+    where OM_ID = #{omId,jdbcType=INTEGER}
+  </update>
+</mapper>

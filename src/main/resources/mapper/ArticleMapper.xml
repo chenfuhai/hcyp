@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liufengkj.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.liufengkj.pojo.Article">
+    <id column="Ar_ID" jdbcType="INTEGER" property="arId" />
+    <result column="Ar_Title" jdbcType="VARCHAR" property="arTitle" />
+    <result column="Ar_SubTitle" jdbcType="VARCHAR" property="arSubtitle" />
+    <result column="Ar_PublicTime" jdbcType="TIMESTAMP" property="arPublictime" />
+    <result column="Ar_IsHot" jdbcType="CHAR" property="arIshot" />
+    <result column="Ar_IsNew" jdbcType="CHAR" property="arIsnew" />
+    <result column="Ar_From" jdbcType="VARCHAR" property="arFrom" />
+    <result column="Ar_ClickCount" jdbcType="INTEGER" property="arClickcount" />
+    <result column="Ar_ColumnID" jdbcType="INTEGER" property="arColumnid" />
+    <result column="Ar_Status" jdbcType="INTEGER" property="arStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Ar_ID, Ar_Title, Ar_SubTitle, Ar_PublicTime, Ar_IsHot, Ar_IsNew, Ar_From, Ar_ClickCount, 
+    Ar_ColumnID, Ar_Status
+  </sql>
+  <select id="selectByExample" parameterType="com.liufengkj.pojo.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HCYP_Article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HCYP_Article
+    where Ar_ID = #{arId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from HCYP_Article
+    where Ar_ID = #{arId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liufengkj.pojo.ArticleExample">
+    delete from HCYP_Article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liufengkj.pojo.Article">
+    insert into HCYP_Article (Ar_ID, Ar_Title, Ar_SubTitle, 
+      Ar_PublicTime, Ar_IsHot, Ar_IsNew, 
+      Ar_From, Ar_ClickCount, Ar_ColumnID, 
+      Ar_Status)
+    values (#{arId,jdbcType=INTEGER}, #{arTitle,jdbcType=VARCHAR}, #{arSubtitle,jdbcType=VARCHAR}, 
+      #{arPublictime,jdbcType=TIMESTAMP}, #{arIshot,jdbcType=CHAR}, #{arIsnew,jdbcType=CHAR}, 
+      #{arFrom,jdbcType=VARCHAR}, #{arClickcount,jdbcType=INTEGER}, #{arColumnid,jdbcType=INTEGER}, 
+      #{arStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liufengkj.pojo.Article">
+    insert into HCYP_Article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="arId != null">
+        Ar_ID,
+      </if>
+      <if test="arTitle != null">
+        Ar_Title,
+      </if>
+      <if test="arSubtitle != null">
+        Ar_SubTitle,
+      </if>
+      <if test="arPublictime != null">
+        Ar_PublicTime,
+      </if>
+      <if test="arIshot != null">
+        Ar_IsHot,
+      </if>
+      <if test="arIsnew != null">
+        Ar_IsNew,
+      </if>
+      <if test="arFrom != null">
+        Ar_From,
+      </if>
+      <if test="arClickcount != null">
+        Ar_ClickCount,
+      </if>
+      <if test="arColumnid != null">
+        Ar_ColumnID,
+      </if>
+      <if test="arStatus != null">
+        Ar_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="arId != null">
+        #{arId,jdbcType=INTEGER},
+      </if>
+      <if test="arTitle != null">
+        #{arTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arSubtitle != null">
+        #{arSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arPublictime != null">
+        #{arPublictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arIshot != null">
+        #{arIshot,jdbcType=CHAR},
+      </if>
+      <if test="arIsnew != null">
+        #{arIsnew,jdbcType=CHAR},
+      </if>
+      <if test="arFrom != null">
+        #{arFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="arClickcount != null">
+        #{arClickcount,jdbcType=INTEGER},
+      </if>
+      <if test="arColumnid != null">
+        #{arColumnid,jdbcType=INTEGER},
+      </if>
+      <if test="arStatus != null">
+        #{arStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liufengkj.pojo.ArticleExample" resultType="java.lang.Long">
+    select count(*) from HCYP_Article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HCYP_Article
+    <set>
+      <if test="record.arId != null">
+        Ar_ID = #{record.arId,jdbcType=INTEGER},
+      </if>
+      <if test="record.arTitle != null">
+        Ar_Title = #{record.arTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arSubtitle != null">
+        Ar_SubTitle = #{record.arSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arPublictime != null">
+        Ar_PublicTime = #{record.arPublictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.arIshot != null">
+        Ar_IsHot = #{record.arIshot,jdbcType=CHAR},
+      </if>
+      <if test="record.arIsnew != null">
+        Ar_IsNew = #{record.arIsnew,jdbcType=CHAR},
+      </if>
+      <if test="record.arFrom != null">
+        Ar_From = #{record.arFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arClickcount != null">
+        Ar_ClickCount = #{record.arClickcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.arColumnid != null">
+        Ar_ColumnID = #{record.arColumnid,jdbcType=INTEGER},
+      </if>
+      <if test="record.arStatus != null">
+        Ar_Status = #{record.arStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HCYP_Article
+    set Ar_ID = #{record.arId,jdbcType=INTEGER},
+      Ar_Title = #{record.arTitle,jdbcType=VARCHAR},
+      Ar_SubTitle = #{record.arSubtitle,jdbcType=VARCHAR},
+      Ar_PublicTime = #{record.arPublictime,jdbcType=TIMESTAMP},
+      Ar_IsHot = #{record.arIshot,jdbcType=CHAR},
+      Ar_IsNew = #{record.arIsnew,jdbcType=CHAR},
+      Ar_From = #{record.arFrom,jdbcType=VARCHAR},
+      Ar_ClickCount = #{record.arClickcount,jdbcType=INTEGER},
+      Ar_ColumnID = #{record.arColumnid,jdbcType=INTEGER},
+      Ar_Status = #{record.arStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liufengkj.pojo.Article">
+    update HCYP_Article
+    <set>
+      <if test="arTitle != null">
+        Ar_Title = #{arTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arSubtitle != null">
+        Ar_SubTitle = #{arSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arPublictime != null">
+        Ar_PublicTime = #{arPublictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arIshot != null">
+        Ar_IsHot = #{arIshot,jdbcType=CHAR},
+      </if>
+      <if test="arIsnew != null">
+        Ar_IsNew = #{arIsnew,jdbcType=CHAR},
+      </if>
+      <if test="arFrom != null">
+        Ar_From = #{arFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="arClickcount != null">
+        Ar_ClickCount = #{arClickcount,jdbcType=INTEGER},
+      </if>
+      <if test="arColumnid != null">
+        Ar_ColumnID = #{arColumnid,jdbcType=INTEGER},
+      </if>
+      <if test="arStatus != null">
+        Ar_Status = #{arStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Ar_ID = #{arId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liufengkj.pojo.Article">
+    update HCYP_Article
+    set Ar_Title = #{arTitle,jdbcType=VARCHAR},
+      Ar_SubTitle = #{arSubtitle,jdbcType=VARCHAR},
+      Ar_PublicTime = #{arPublictime,jdbcType=TIMESTAMP},
+      Ar_IsHot = #{arIshot,jdbcType=CHAR},
+      Ar_IsNew = #{arIsnew,jdbcType=CHAR},
+      Ar_From = #{arFrom,jdbcType=VARCHAR},
+      Ar_ClickCount = #{arClickcount,jdbcType=INTEGER},
+      Ar_ColumnID = #{arColumnid,jdbcType=INTEGER},
+      Ar_Status = #{arStatus,jdbcType=INTEGER}
+    where Ar_ID = #{arId,jdbcType=INTEGER}
+  </update>
+</mapper>
